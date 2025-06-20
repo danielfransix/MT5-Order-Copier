@@ -1,0 +1,133 @@
+2025-06-19 21:00:21 - MT5_Copier - INFO - No existing state file found, starting with clean state
+2025-06-19 21:00:21 - MT5_Copier - INFO - Detected 0 orphaned positions on terminal_1
+2025-06-19 21:00:21 - MT5_Copier - INFO - Detected 1 orphaned positions on terminal_1
+2025-06-19 21:00:21 - MT5_Copier - INFO - Loaded tracking state from order_tracker_state.json
+2025-06-20 08:36:02 - MT5_Copier - INFO - Attempting to connect to terminal: Test
+2025-06-20 08:36:02 - MT5_Copier - WARNING - Terminal executable not found: C:\test\path.exe
+2025-06-20 08:36:02 - MT5_Copier - ERROR - Failed to initialize MT5 with path: C:\test\path.exe
+2025-06-20 08:36:02 - MT5_Copier - INFO - Attempting to connect to terminal: Test
+2025-06-20 08:36:02 - MT5_Copier - WARNING - Terminal executable not found: C:\test\path.exe
+2025-06-20 08:36:02 - MT5_Copier - INFO - Successfully connected to Test - Account: <MagicMock name='mt5.account_info().login' id='2015006033968'>
+2025-06-20 08:36:02 - MT5_Copier - INFO - Account balance: <MagicMock name='mt5.account_info().balance' id='2015006035984'>, Server: <MagicMock name='mt5.account_info().server' id='2015006036656'>
+2025-06-20 08:36:02 - MT5_Copier - INFO - Loaded tracking state from order_tracker_state.json
+2025-06-20 08:36:02 - MT5_Copier - INFO - Loaded tracking state from order_tracker_state.json
+2025-06-20 08:36:02 - MT5_Copier - INFO - Starting order copying process for all terminals
+2025-06-20 08:36:02 - MT5_Copier - INFO - Connecting to source terminal
+2025-06-20 08:36:02 - MT5_Copier - INFO - Retrieved 0 orders from source terminal
+2025-06-20 08:36:02 - MT5_Copier - INFO - Connecting to source terminal for positions
+2025-06-20 08:36:02 - MT5_Copier - ERROR - Error getting source positions: object of type 'Mock' has no len()
+2025-06-20 08:36:02 - MT5_Copier - ERROR - Failed to retrieve source positions
+2025-06-20 08:39:19 - MT5_Copier - INFO - No existing state file found, starting with clean state
+2025-06-20 08:39:19 - MT5_Copier - INFO - No existing state file found, starting with clean state
+2025-06-20 08:39:19 - MT5_Copier - INFO - No existing state file found, starting with clean state
+2025-06-20 08:39:19 - MT5_Copier - INFO - No existing state file found, starting with clean state
+2025-06-20 08:39:19 - MT5_Copier - INFO - No existing state file found, starting with clean state
+2025-06-20 08:39:19 - MT5_Copier - INFO - Attempting to connect to terminal: Test
+2025-06-20 08:39:19 - MT5_Copier - WARNING - Terminal executable not found: C:\test\path.exe
+2025-06-20 08:39:19 - MT5_Copier - ERROR - Failed to initialize MT5 with path: C:\test\path.exe
+2025-06-20 08:39:19 - MT5_Copier - INFO - Attempting to connect to terminal: Test
+2025-06-20 08:39:19 - MT5_Copier - WARNING - Terminal executable not found: C:\test\path.exe
+2025-06-20 08:39:19 - MT5_Copier - INFO - Successfully connected to Test - Account: <MagicMock name='mt5.account_info().login' id='2290130489024'>
+2025-06-20 08:39:19 - MT5_Copier - INFO - Account balance: <MagicMock name='mt5.account_info().balance' id='2290130489696'>, Server: <MagicMock name='mt5.account_info().server' id='2290130490368'>
+2025-06-20 08:39:19 - MT5_Copier - INFO - Retrieved 1 pending orders
+2025-06-20 08:39:19 - MT5_Copier - INFO - Loaded tracking state from order_tracker_state.json
+2025-06-20 08:39:19 - MT5_Copier - INFO - Loaded tracking state from order_tracker_state.json
+2025-06-20 08:39:19 - MT5_Copier - INFO - Starting order copying process for all terminals
+2025-06-20 08:39:19 - MT5_Copier - INFO - Connecting to source terminal
+2025-06-20 08:39:19 - MT5_Copier - INFO - Retrieved 0 orders from source terminal
+2025-06-20 08:39:19 - MT5_Copier - INFO - Connecting to source terminal for positions
+2025-06-20 08:39:19 - MT5_Copier - ERROR - Error getting source positions: object of type 'Mock' has no len()
+2025-06-20 08:39:19 - MT5_Copier - ERROR - Failed to retrieve source positions
+2025-06-20 08:44:39 - MT5_Copier - INFO - No existing state file found, starting with clean state
+2025-06-20 08:44:39 - MT5_Copier - INFO - No existing state file found, starting with clean state
+2025-06-20 08:44:39 - MT5_Copier - INFO - No existing state file found, starting with clean state
+2025-06-20 08:44:39 - MT5_Copier - INFO - No existing state file found, starting with clean state
+2025-06-20 08:44:39 - MT5_Copier - INFO - No existing state file found, starting with clean state
+2025-06-20 08:44:39 - MT5_Copier - INFO - Attempting to connect to terminal: Test
+2025-06-20 08:44:39 - MT5_Copier - WARNING - Terminal executable not found: C:\test\path.exe
+2025-06-20 08:44:39 - MT5_Copier - ERROR - Failed to initialize MT5 with path: C:\test\path.exe
+2025-06-20 08:44:39 - MT5_Copier - INFO - Attempting to connect to terminal: Test
+2025-06-20 08:44:39 - MT5_Copier - WARNING - Terminal executable not found: C:\test\path.exe
+2025-06-20 08:44:39 - MT5_Copier - INFO - Successfully connected to Test - Account: <MagicMock name='mt5.account_info().login' id='2001128132288'>
+2025-06-20 08:44:39 - MT5_Copier - INFO - Account balance: <MagicMock name='mt5.account_info().balance' id='2001128132960'>, Server: <MagicMock name='mt5.account_info().server' id='2001128133632'>
+2025-06-20 08:44:39 - MT5_Copier - INFO - Retrieved 1 pending orders
+2025-06-20 08:44:39 - MT5_Copier - INFO - Loaded tracking state from order_tracker_state.json
+2025-06-20 08:44:39 - MT5_Copier - INFO - Loaded tracking state from order_tracker_state.json
+2025-06-20 08:44:39 - MT5_Copier - INFO - Starting order copying process for all terminals
+2025-06-20 08:44:39 - MT5_Copier - INFO - Connecting to source terminal
+2025-06-20 08:44:39 - MT5_Copier - INFO - Retrieved 0 orders from source terminal
+2025-06-20 08:44:39 - MT5_Copier - INFO - Connecting to source terminal for positions
+2025-06-20 08:44:39 - MT5_Copier - ERROR - Error getting source positions: object of type 'Mock' has no len()
+2025-06-20 08:44:39 - MT5_Copier - ERROR - Failed to retrieve source positions
+2025-06-20 08:49:40 - MT5_Copier - INFO - No existing state file found, starting with clean state
+2025-06-20 08:49:40 - MT5_Copier - INFO - Detected 1 orphaned orders on Terminal1
+2025-06-20 08:49:40 - MT5_Copier - INFO - No existing state file found, starting with clean state
+2025-06-20 08:49:40 - MT5_Copier - INFO - No existing state file found, starting with clean state
+2025-06-20 08:49:40 - MT5_Copier - INFO - Loaded tracking state from C:\Users\SURFACE\AppData\Local\Temp\tmpzim51qp9\test_state.json
+2025-06-20 08:49:40 - MT5_Copier - INFO - Loaded tracking state from C:\Users\SURFACE\AppData\Local\Temp\tmpzim51qp9\test_state.json
+2025-06-20 08:49:40 - MT5_Copier - INFO - No existing state file found, starting with clean state
+2025-06-20 08:49:40 - MT5_Copier - INFO - No existing state file found, starting with clean state
+2025-06-20 08:49:40 - MT5_Copier - INFO - Attempting to connect to terminal: Test
+2025-06-20 08:49:40 - MT5_Copier - WARNING - Terminal executable not found: C:\test\path.exe
+2025-06-20 08:49:40 - MT5_Copier - ERROR - Failed to initialize MT5 with path: C:\test\path.exe
+2025-06-20 08:49:40 - MT5_Copier - INFO - Attempting to connect to terminal: Test
+2025-06-20 08:49:40 - MT5_Copier - WARNING - Terminal executable not found: C:\test\path.exe
+2025-06-20 08:49:40 - MT5_Copier - INFO - Successfully connected to Test - Account: <MagicMock name='mt5.account_info().login' id='2298115214368'>
+2025-06-20 08:49:40 - MT5_Copier - INFO - Account balance: <MagicMock name='mt5.account_info().balance' id='2298115215040'>, Server: <MagicMock name='mt5.account_info().server' id='2298115215712'>
+2025-06-20 08:49:40 - MT5_Copier - INFO - Retrieved 1 pending orders
+2025-06-20 08:49:40 - MT5_Copier - INFO - Loaded tracking state from order_tracker_state.json
+2025-06-20 08:49:40 - MT5_Copier - INFO - Loaded tracking state from order_tracker_state.json
+2025-06-20 08:49:40 - MT5_Copier - INFO - Starting order copying process for all terminals
+2025-06-20 08:49:40 - MT5_Copier - INFO - Connecting to source terminal
+2025-06-20 08:49:40 - MT5_Copier - INFO - Retrieved 0 orders from source terminal
+2025-06-20 08:49:40 - MT5_Copier - INFO - Connecting to source terminal for positions
+2025-06-20 08:49:40 - MT5_Copier - ERROR - Error getting source positions: object of type 'Mock' has no len()
+2025-06-20 08:49:40 - MT5_Copier - ERROR - Failed to retrieve source positions
+2025-06-20 10:26:28 - MT5_Copier - INFO - No existing state file found, starting with clean state
+2025-06-20 10:26:28 - MT5_Copier - INFO - Detected 1 orphaned orders on Terminal1
+2025-06-20 10:26:28 - MT5_Copier - INFO - No existing state file found, starting with clean state
+2025-06-20 10:26:28 - MT5_Copier - INFO - No existing state file found, starting with clean state
+2025-06-20 10:26:28 - MT5_Copier - INFO - Loaded tracking state from C:\Users\SURFACE\AppData\Local\Temp\tmp7kdzslzx\test_state.json
+2025-06-20 10:26:28 - MT5_Copier - INFO - Loaded tracking state from C:\Users\SURFACE\AppData\Local\Temp\tmp7kdzslzx\test_state.json
+2025-06-20 10:26:28 - MT5_Copier - INFO - No existing state file found, starting with clean state
+2025-06-20 10:26:28 - MT5_Copier - INFO - No existing state file found, starting with clean state
+2025-06-20 10:26:28 - MT5_Copier - INFO - Attempting to connect to terminal: Test
+2025-06-20 10:26:28 - MT5_Copier - WARNING - Terminal executable not found: C:\test\path.exe
+2025-06-20 10:26:28 - MT5_Copier - ERROR - Failed to initialize MT5 with path: C:\test\path.exe
+2025-06-20 10:26:28 - MT5_Copier - INFO - Attempting to connect to terminal: Test
+2025-06-20 10:26:28 - MT5_Copier - WARNING - Terminal executable not found: C:\test\path.exe
+2025-06-20 10:26:28 - MT5_Copier - INFO - Successfully connected to Test - Account: <MagicMock name='mt5.account_info().login' id='1594256493600'>
+2025-06-20 10:26:29 - MT5_Copier - INFO - Account balance: <MagicMock name='mt5.account_info().balance' id='1594256494272'>, Server: <MagicMock name='mt5.account_info().server' id='1594256494944'>
+2025-06-20 10:26:29 - MT5_Copier - INFO - Retrieved 1 pending orders
+2025-06-20 10:26:29 - MT5_Copier - INFO - Loaded tracking state from order_tracker_state.json
+2025-06-20 10:26:29 - MT5_Copier - INFO - Loaded tracking state from order_tracker_state.json
+2025-06-20 10:26:29 - MT5_Copier - INFO - Starting order copying process for all terminals
+2025-06-20 10:26:29 - MT5_Copier - INFO - Connecting to source terminal
+2025-06-20 10:26:29 - MT5_Copier - INFO - Retrieved 0 orders from source terminal
+2025-06-20 10:26:29 - MT5_Copier - INFO - Connecting to source terminal for positions
+2025-06-20 10:26:29 - MT5_Copier - ERROR - Error getting source positions: object of type 'Mock' has no len()
+2025-06-20 10:26:29 - MT5_Copier - ERROR - Failed to retrieve source positions
+2025-06-20 10:28:14 - MT5_Copier - INFO - No existing state file found, starting with clean state
+2025-06-20 10:28:14 - MT5_Copier - INFO - Detected 1 orphaned orders on Terminal1
+2025-06-20 10:28:14 - MT5_Copier - INFO - No existing state file found, starting with clean state
+2025-06-20 10:28:14 - MT5_Copier - INFO - No existing state file found, starting with clean state
+2025-06-20 10:28:14 - MT5_Copier - INFO - Loaded tracking state from C:\Users\SURFACE\AppData\Local\Temp\tmps9kc_y7r\test_state.json
+2025-06-20 10:28:14 - MT5_Copier - INFO - Loaded tracking state from C:\Users\SURFACE\AppData\Local\Temp\tmps9kc_y7r\test_state.json
+2025-06-20 10:28:14 - MT5_Copier - INFO - No existing state file found, starting with clean state
+2025-06-20 10:28:14 - MT5_Copier - INFO - No existing state file found, starting with clean state
+2025-06-20 10:28:14 - MT5_Copier - INFO - Attempting to connect to terminal: Test
+2025-06-20 10:28:14 - MT5_Copier - WARNING - Terminal executable not found: C:\test\path.exe
+2025-06-20 10:28:14 - MT5_Copier - ERROR - Failed to initialize MT5 with path: C:\test\path.exe
+2025-06-20 10:28:14 - MT5_Copier - INFO - Attempting to connect to terminal: Test
+2025-06-20 10:28:14 - MT5_Copier - WARNING - Terminal executable not found: C:\test\path.exe
+2025-06-20 10:28:14 - MT5_Copier - INFO - Successfully connected to Test - Account: <MagicMock name='mt5.account_info().login' id='1276974238416'>
+2025-06-20 10:28:14 - MT5_Copier - INFO - Account balance: <MagicMock name='mt5.account_info().balance' id='1276974239088'>, Server: <MagicMock name='mt5.account_info().server' id='1276974239760'>
+2025-06-20 10:28:14 - MT5_Copier - INFO - Retrieved 1 pending orders
+2025-06-20 10:28:14 - MT5_Copier - INFO - Loaded tracking state from order_tracker_state.json
+2025-06-20 10:28:14 - MT5_Copier - INFO - Loaded tracking state from order_tracker_state.json
+2025-06-20 10:28:14 - MT5_Copier - INFO - Starting order copying process for all terminals
+2025-06-20 10:28:14 - MT5_Copier - INFO - Connecting to source terminal
+2025-06-20 10:28:14 - MT5_Copier - INFO - Retrieved 0 orders from source terminal
+2025-06-20 10:28:14 - MT5_Copier - INFO - Connecting to source terminal for positions
+2025-06-20 10:28:14 - MT5_Copier - ERROR - Error getting source positions: object of type 'Mock' has no len()
+2025-06-20 10:28:14 - MT5_Copier - ERROR - Failed to retrieve source positions
