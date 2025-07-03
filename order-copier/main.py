@@ -15,6 +15,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from config import load_config, validate_config
 from order_manager import OrderManager
+from scheduling_utils import calculate_next_execution_time, get_time_until_next_execution
 from utils import (
     setup_logging, format_error_message, get_current_timestamp,
     ensure_directory_exists
@@ -77,18 +78,23 @@ class MT5OrderCopierApp:
             self.running = True
             self.logger.info("Starting MT5 Pending Order Copier main loop")
             
-            # Get execution mode
-            execution_mode = self.config.get('EXECUTION_MODE', 'scheduled')
+            # Get execution configuration (Claude-style)
+            enable_scheduling = self.config.get('ENABLE_SCHEDULING', False)
+            enable_continuous_mode = self.config.get('ENABLE_CONTINUOUS_MODE', True)
             
-            if execution_mode == 'once':
-                return self._run_once()
-            elif execution_mode == 'scheduled':
-                return self._run_scheduled()
-            elif execution_mode == 'continuous':
-                return self._run_continuous()
+            # Determine execution mode based on configuration
+            if enable_continuous_mode and enable_scheduling:
+                # Both enabled - prioritize continuous mode as per plan
+                self.logger.info("Both scheduling and continuous mode enabled - running in continuous mode")
+                return self._run_continuous_mode()
+            elif enable_continuous_mode:
+                return self._run_continuous_mode()
+            elif enable_scheduling:
+                return self._run_scheduled_mode()
             else:
-                self.logger.error(f"Unknown execution mode: {execution_mode}")
-                return 1
+                # Neither enabled - run once and exit
+                self.logger.info("No execution mode enabled - running once and exiting")
+                return self._run_once()
             
         except KeyboardInterrupt:
             self.logger.info("Received keyboard interrupt, shutting down gracefully")
@@ -117,50 +123,54 @@ class MT5OrderCopierApp:
             self.logger.error(f"Error in single execution mode: {format_error_message(e)}")
             return 1
     
-    def _run_scheduled(self) -> int:
-        """Run the order copying process on a schedule"""
+    def _run_scheduled_mode(self) -> int:
+        """Run the order copying process on a Claude-style schedule"""
         try:
-            schedule_config = self.config.get('SCHEDULE_CONFIG', {})
-            interval_seconds = schedule_config.get('interval_seconds', 60)
-            max_iterations = schedule_config.get('max_iterations', 0)  # 0 = unlimited
+            schedule_timeframe = self.config.get('SCHEDULE_TIMEFRAME', 'M5')
+            schedule_offset_seconds = self.config.get('SCHEDULE_OFFSET_SECONDS', 60)
             
-            self.logger.info(f"Running in 'scheduled' mode - interval: {interval_seconds}s")
-            if max_iterations > 0:
-                self.logger.info(f"Maximum iterations: {max_iterations}")
+            self.logger.info(f"Running in scheduled mode - timeframe: {schedule_timeframe}, offset: {schedule_offset_seconds}s")
             
             iteration_count = 0
             
             while self.running and not self.shutdown_requested:
                 try:
                     iteration_count += 1
-                    self.logger.info(f"Starting iteration {iteration_count}")
                     
-                    # Check if we should stop based on max iterations
-                    if max_iterations > 0 and iteration_count > max_iterations:
-                        self.logger.info(f"Reached maximum iterations ({max_iterations}), stopping")
+                    # Calculate next execution time
+                    next_execution_time = calculate_next_execution_time(schedule_timeframe, schedule_offset_seconds)
+                    wait_seconds = get_time_until_next_execution(schedule_timeframe, schedule_offset_seconds)
+                    
+                    self.logger.info(f"Iteration {iteration_count} - Next execution at: {next_execution_time.strftime('%Y-%m-%d %H:%M:%S')}")
+                    self.logger.info(f"Waiting {wait_seconds:.1f} seconds until next execution")
+                    
+                    # Wait until next execution time
+                    if wait_seconds > 0 and self.running and not self.shutdown_requested:
+                        self._wait_for_next_iteration(wait_seconds)
+                    
+                    # Check if we should still run after waiting
+                    if not self.running or self.shutdown_requested:
                         break
                     
                     # Process all terminals
                     start_time = time.time()
+                    self.logger.info(f"Starting scheduled execution {iteration_count}")
                     success = self.order_manager.process_all_terminals()
                     end_time = time.time()
                     
                     processing_time = end_time - start_time
-                    self.logger.info(f"Iteration {iteration_count} completed in {processing_time:.2f}s")
+                    self.logger.info(f"Scheduled execution {iteration_count} completed in {processing_time:.2f}s")
                     
                     if not success:
-                        self.logger.warning(f"Iteration {iteration_count} completed with errors")
-                    
-                    # Wait for next iteration
-                    if self.running and not self.shutdown_requested:
-                        self._wait_for_next_iteration(interval_seconds)
+                        self.logger.warning(f"Scheduled execution {iteration_count} completed with errors")
                     
                 except Exception as e:
-                    self.logger.error(f"Error in iteration {iteration_count}: {format_error_message(e)}")
+                    self.logger.error(f"Error in scheduled execution {iteration_count}: {format_error_message(e)}")
                     
-                    # Wait before retrying
+                    # Wait before retrying (use a shorter interval for error recovery)
                     if self.running and not self.shutdown_requested:
-                        self._wait_for_next_iteration(min(interval_seconds, 30))
+                        self.logger.info("Waiting 30 seconds before retry due to error")
+                        self._wait_for_next_iteration(30)
             
             self.logger.info(f"Scheduled execution completed after {iteration_count} iterations")
             return 0
@@ -169,14 +179,13 @@ class MT5OrderCopierApp:
             self.logger.error(f"Error in scheduled execution mode: {format_error_message(e)}")
             return 1
     
-    def _run_continuous(self) -> int:
-        """Run the order copying process continuously with minimal delay"""
+    def _run_continuous_mode(self) -> int:
+        """Run the order copying process continuously with Claude-style parameters"""
         try:
-            continuous_config = self.config.get('CONTINUOUS_CONFIG', {})
-            delay_seconds = continuous_config.get('delay_seconds', 5)
-            max_runtime_hours = continuous_config.get('max_runtime_hours', 0)  # 0 = unlimited
+            delay_seconds = self.config.get('CONTINUOUS_DELAY_SECONDS', 5)
+            max_runtime_hours = self.config.get('CONTINUOUS_MAX_RUNTIME_HOURS', 0)  # 0 = unlimited
             
-            self.logger.info(f"Running in 'continuous' mode - delay: {delay_seconds}s")
+            self.logger.info(f"Running in continuous mode - delay: {delay_seconds}s")
             if max_runtime_hours > 0:
                 self.logger.info(f"Maximum runtime: {max_runtime_hours} hours")
             
@@ -194,22 +203,29 @@ class MT5OrderCopierApp:
                             self.logger.info(f"Reached maximum runtime ({max_runtime_hours} hours), stopping")
                             break
                     
-                    # Process all terminals
+                    # Process all terminals immediately with no delay between terminals
+                    start_iteration_time = time.time()
                     success = self.order_manager.process_all_terminals()
+                    end_iteration_time = time.time()
+                    
+                    processing_time = end_iteration_time - start_iteration_time
+                    self.logger.debug(f"Continuous iteration {iteration_count} completed in {processing_time:.2f}s")
                     
                     if not success:
-                        self.logger.warning(f"Iteration {iteration_count} completed with errors")
+                        self.logger.warning(f"Continuous iteration {iteration_count} completed with errors")
                     
-                    # Short delay before next iteration
+                    # Delay before next iteration (but no delay between terminals)
                     if self.running and not self.shutdown_requested:
-                        time.sleep(delay_seconds)
+                        self._wait_for_next_iteration(delay_seconds)
                     
                 except Exception as e:
                     self.logger.error(f"Error in continuous iteration {iteration_count}: {format_error_message(e)}")
                     
-                    # Wait before retrying
+                    # Wait before retrying (use double delay or max 30s for error recovery)
                     if self.running and not self.shutdown_requested:
-                        time.sleep(min(delay_seconds * 2, 30))
+                        error_delay = min(delay_seconds * 2, 30)
+                        self.logger.info(f"Waiting {error_delay} seconds before retry due to error")
+                        self._wait_for_next_iteration(error_delay)
             
             runtime = datetime.now() - start_time
             self.logger.info(f"Continuous execution completed after {iteration_count} iterations in {runtime}")

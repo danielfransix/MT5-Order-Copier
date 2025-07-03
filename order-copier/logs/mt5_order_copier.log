@@ -1,1 +1,90 @@
-
+2025-07-03 09:40:18 - MT5_Copier - INFO - Logging system initialized
+2025-07-03 09:40:18 - MT5_Copier - INFO - Application started at 2025-07-03 09:40:18
+2025-07-03 09:40:18 - MT5_Copier - INFO - Required directories created successfully
+2025-07-03 09:40:18 - MT5_Copier - INFO - Loaded tracking state from order_tracker_state.json
+2025-07-03 09:40:18 - MT5_Copier - INFO - Order manager initialized successfully
+2025-07-03 09:40:18 - MT5_Copier - INFO - Application initialization completed successfully
+2025-07-03 09:40:18 - MT5_Copier - INFO - Starting MT5 Pending Order Copier main loop
+2025-07-03 09:40:18 - MT5_Copier - INFO - No execution mode enabled - running once and exiting
+2025-07-03 09:40:18 - MT5_Copier - INFO - Running in 'once' mode - single execution
+2025-07-03 09:40:18 - MT5_Copier - INFO - Starting order copying process for all terminals
+2025-07-03 09:40:18 - MT5_Copier - INFO - Connecting to source terminal
+2025-07-03 09:40:18 - MT5_Copier - INFO - Attempting to connect to terminal: Source
+2025-07-03 09:40:18 - MT5_Copier - INFO - Successfully connected to Source - Account: 123456789
+2025-07-03 09:40:18 - MT5_Copier - INFO - Account balance: 9829.67, Server: YourBroker-Server
+2025-07-03 09:40:18 - MT5_Copier - INFO - Retrieved 2 pending orders
+2025-07-03 09:40:18 - MT5_Copier - INFO - Retrieved 2 orders from source terminal
+2025-07-03 09:40:18 - MT5_Copier - INFO - Disconnecting from terminal: Source
+2025-07-03 09:40:18 - MT5_Copier - INFO - Successfully disconnected from MT5
+2025-07-03 09:40:18 - MT5_Copier - INFO - Connecting to source terminal for positions
+2025-07-03 09:40:18 - MT5_Copier - INFO - Attempting to connect to terminal: Source
+2025-07-03 09:40:18 - MT5_Copier - INFO - Successfully connected to Source - Account: 123456789
+2025-07-03 09:40:18 - MT5_Copier - INFO - Account balance: 9829.67, Server: YourBroker-Server
+2025-07-03 09:40:18 - MT5_Copier - INFO - Retrieved 0 active positions
+2025-07-03 09:40:18 - MT5_Copier - INFO - Retrieved 0 positions from source terminal
+2025-07-03 09:40:18 - MT5_Copier - INFO - Disconnecting from terminal: Source
+2025-07-03 09:40:18 - MT5_Copier - INFO - Successfully disconnected from MT5
+2025-07-03 09:40:18 - MT5_Copier - INFO - Processing terminal: terminal_2
+2025-07-03 09:40:18 - MT5_Copier - INFO - Attempting to connect to terminal: terminal_2
+2025-07-03 09:40:18 - MT5_Copier - INFO - Successfully connected to terminal_2 - Account: 987654321
+2025-07-03 09:40:18 - MT5_Copier - INFO - Account balance: 4856.42, Server: YourBroker-Server
+2025-07-03 09:40:18 - MT5_Copier - INFO - Retrieved 0 pending orders
+2025-07-03 09:40:18 - MT5_Copier - INFO - Retrieved 0 orders from terminal_2
+2025-07-03 09:40:18 - MT5_Copier - INFO - Retrieved 0 active positions
+2025-07-03 09:40:18 - MT5_Copier - INFO - Retrieved 0 positions from terminal_2
+2025-07-03 09:40:18 - MT5_Copier - INFO - Found 2 new orders to copy to terminal_2
+2025-07-03 09:40:18 - MT5_Copier - INFO - Order placed successfully - Ticket: 8885012
+2025-07-03 09:40:18 - MT5_Copier - INFO - Successfully copied order 8883447 to terminal_2 as 8885012
+2025-07-03 09:40:18 - MT5_Copier - INFO - Order placed successfully - Ticket: 8885013
+2025-07-03 09:40:18 - MT5_Copier - INFO - Successfully copied order 8884849 to terminal_2 as 8885013
+2025-07-03 09:40:18 - MT5_Copier - INFO - Successfully copied all 2 new orders to terminal_2
+2025-07-03 09:40:18 - MT5_Copier - INFO - No order updates needed for terminal_2
+2025-07-03 09:40:18 - MT5_Copier - INFO - Detected 0 orphaned orders on terminal_2
+2025-07-03 09:40:18 - MT5_Copier - INFO - No orphaned orders found on terminal_2
+2025-07-03 09:40:18 - MT5_Copier - INFO - Detected 0 orphaned positions on terminal_2
+2025-07-03 09:40:18 - MT5_Copier - INFO - No orphaned positions found on terminal_2
+2025-07-03 09:40:18 - MT5_Copier - INFO - Synchronizing positions for terminal_2
+2025-07-03 09:40:18 - MT5_Copier - INFO - Disconnecting from terminal: terminal_2
+2025-07-03 09:40:18 - MT5_Copier - INFO - Successfully disconnected from MT5
+2025-07-03 09:40:18 - MT5_Copier - INFO - All processing steps completed successfully for terminal_2
+2025-07-03 09:40:18 - MT5_Copier - INFO - Successfully processed terminal: terminal_2
+2025-07-03 09:40:18 - MT5_Copier - INFO - Processing terminal: terminal_3
+2025-07-03 09:40:18 - MT5_Copier - INFO - Attempting to connect to terminal: terminal_3
+2025-07-03 09:40:18 - MT5_Copier - INFO - Successfully connected to terminal_3 - Account: 111222333
+2025-07-03 09:40:18 - MT5_Copier - INFO - Account balance: 4723.19, Server: YourBroker-Server
+2025-07-03 09:40:18 - MT5_Copier - INFO - Retrieved 0 pending orders
+2025-07-03 09:40:18 - MT5_Copier - INFO - Retrieved 0 orders from terminal_3
+2025-07-03 09:40:18 - MT5_Copier - INFO - Retrieved 0 active positions
+2025-07-03 09:40:18 - MT5_Copier - INFO - Retrieved 0 positions from terminal_3
+2025-07-03 09:40:18 - MT5_Copier - INFO - Found 2 new orders to copy to terminal_3
+2025-07-03 09:40:19 - MT5_Copier - INFO - Order placed successfully - Ticket: 8885015
+2025-07-03 09:40:19 - MT5_Copier - INFO - Successfully copied order 8883447 to terminal_3 as 8885015
+2025-07-03 09:40:19 - MT5_Copier - INFO - Order placed successfully - Ticket: 8885016
+2025-07-03 09:40:19 - MT5_Copier - INFO - Successfully copied order 8884849 to terminal_3 as 8885016
+2025-07-03 09:40:19 - MT5_Copier - INFO - Successfully copied all 2 new orders to terminal_3
+2025-07-03 09:40:19 - MT5_Copier - INFO - No order updates needed for terminal_3
+2025-07-03 09:40:19 - MT5_Copier - INFO - Detected 0 orphaned orders on terminal_3
+2025-07-03 09:40:19 - MT5_Copier - INFO - No orphaned orders found on terminal_3
+2025-07-03 09:40:19 - MT5_Copier - INFO - Detected 0 orphaned positions on terminal_3
+2025-07-03 09:40:19 - MT5_Copier - INFO - No orphaned positions found on terminal_3
+2025-07-03 09:40:19 - MT5_Copier - INFO - Synchronizing positions for terminal_3
+2025-07-03 09:40:19 - MT5_Copier - INFO - Disconnecting from terminal: terminal_3
+2025-07-03 09:40:19 - MT5_Copier - INFO - Successfully disconnected from MT5
+2025-07-03 09:40:19 - MT5_Copier - INFO - All processing steps completed successfully for terminal_3
+2025-07-03 09:40:19 - MT5_Copier - INFO - Successfully processed terminal: terminal_3
+2025-07-03 09:40:19 - MT5_Copier - INFO - === Processing Statistics ===
+2025-07-03 09:40:19 - MT5_Copier - INFO - Terminals processed: 2
+2025-07-03 09:40:19 - MT5_Copier - INFO - Orders copied: 4
+2025-07-03 09:40:19 - MT5_Copier - INFO - Orders updated: 0
+2025-07-03 09:40:19 - MT5_Copier - INFO - Orders cancelled: 0
+2025-07-03 09:40:19 - MT5_Copier - INFO - Errors encountered: 0
+2025-07-03 09:40:19 - MT5_Copier - INFO - Total source orders: 2
+2025-07-03 09:40:19 - MT5_Copier - INFO - Total orphan checks: 0
+2025-07-03 09:40:19 - MT5_Copier - INFO - Terminal terminal_1: 0 orders, 0 orphan checks
+2025-07-03 09:40:19 - MT5_Copier - INFO - Terminal terminal_2: 0 orders, 0 orphan checks
+2025-07-03 09:40:19 - MT5_Copier - INFO - Terminal terminal_3: 0 orders, 0 orphan checks
+2025-07-03 09:40:19 - MT5_Copier - INFO - Order copying process completed successfully for all 2 terminals. Orders copied: 4, Orders updated: 0, Orders cancelled: 0, Positions updated: 0
+2025-07-03 09:40:19 - MT5_Copier - INFO - Single execution completed successfully
+2025-07-03 09:40:19 - MT5_Copier - INFO - Starting application cleanup
+2025-07-03 09:40:19 - MT5_Copier - INFO - Application cleanup completed
+2025-07-03 09:40:19 - MT5_Copier - INFO - Application stopped at 2025-07-03 09:40:19

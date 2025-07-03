@@ -94,7 +94,7 @@ if not exist "config.py" (
 
 REM Create temporary config for once mode
 echo Creating temporary configuration for once mode...
-python -c "import config; c = config.__dict__.copy(); c['EXECUTION_MODE'] = 'once'; exec(open('temp_config.py', 'w').write('\n'.join([f'{k} = {repr(v)}' for k, v in c.items() if not k.startswith('__')])))"
+python -c "import config; c = config.__dict__.copy(); c['ENABLE_SCHEDULING'] = False; c['ENABLE_CONTINUOUS_MODE'] = False; exec(open('temp_config.py', 'w').write('\n'.join([f'{k} = {repr(v)}' for k, v in c.items() if not k.startswith('__')])))"
 
 REM Run once
 python main.py temp_config.py

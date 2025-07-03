@@ -5,55 +5,82 @@ import os
 
 # Source Terminal Configuration
 SOURCE_TERMINAL = {
-    'MT5_ACCOUNT': "YOUR_SOURCE_ACCOUNT",
+    'MT5_ACCOUNT': 123456789,
     'MT5_PASSWORD': "YOUR_SOURCE_PASSWORD",
-    'MT5_SERVER': "YOUR_SOURCE_SERVER",
-    'MT5_TERMINAL_PATH': r"C:\path\to\your\source\terminal64.exe",
+    'MT5_SERVER': "YourBroker-Server",
+    'MT5_TERMINAL_PATH': r"C:\Program Files\MetaTrader 5\terminal64.exe",
     'timeout': 10000
 }
 
 # Target Terminals Configuration
 # Each terminal has individual settings for lot multipliers, constraints, and policies
 TARGET_TERMINALS = {
-    'terminal_1': {
-        'MT5_ACCOUNT': "YOUR_TARGET_ACCOUNT",
-        'MT5_PASSWORD': "YOUR_TARGET_PASSWORD",
-        'MT5_SERVER': "YOUR_TARGET_SERVER",
-        'MT5_TERMINAL_PATH': r"C:\path\to\your\target\terminal64.exe",
+    # 'terminal_1': {
+    #     'MT5_ACCOUNT': 123456789,
+    #     'MT5_PASSWORD': "YOUR_PASSWORD",
+    #     'MT5_SERVER': "YourBroker-Server",
+    #     'MT5_TERMINAL_PATH': r"C:\Program Files\MetaTrader 5\terminal64.exe",
+    #     'timeout': 10000,
+    #     'lot_multiplier': 1.0,
+    #     'min_lot_size': 0.01,
+    #     'max_lot_size': 100.0,
+    #     'allowed_order_types': ['BUY_LIMIT', 'SELL_LIMIT', 'BUY_STOP', 'SELL_STOP', 'BUY_STOP_LIMIT', 'SELL_STOP_LIMIT'],
+    #     'symbol_mapping': {
+    #         'AUDJPY': 'AUDJPY.x',
+    #         'AUDUSD': 'AUDUSD.x',
+    #         'BRENT': 'BRENT.x',
+    #         'BTCUSD': 'BTCUSD.x',
+    #         'ETHUSD': 'ETHUSD.x',
+    #         'GBPJPY': 'GBPJPY.x',
+    #         'GBPUSD': 'GBPUSD.x',
+    #         'NAT.GAS': 'NAT.GAS.x',
+    #         'US2000': 'US2000.x',
+    #         'US500': 'US500.x',
+    #         'USDCAD': 'USDCAD.x',
+    #         'USDCHF': 'USDCHF.x',
+    #         'USDJPY': 'USDJPY.x',
+    #         'USTEC': 'NAS100.x',
+    #         'XAGUSD': 'XAGUSD.x',
+    #         'XAUUSD': 'XAUUSD.x',
+    #     },
+    #     'orphan_management': {
+    #         'kill_orphaned_orders': False,
+    #         'kill_orphaned_positions': False,
+    #         'orphan_check_interval': 1,  # seconds
+    #         'max_orphan_checks': 1
+    #     },
+    #     'max_pending_orders': {
+    #         'enabled': True,
+    #         'max_orders': 30
+    #     }
+    # },
+    'terminal_2': {
+        'MT5_ACCOUNT': 987654321,
+        'MT5_PASSWORD': "YOUR_TARGET_PASSWORD_1",
+        'MT5_SERVER': "YourBroker-Server",
+        'MT5_TERMINAL_PATH': r"C:\Program Files\MetaTrader 5\terminal64.exe",
         'timeout': 10000,
-        'lot_multiplier': 1.0,
+        'lot_multiplier': 0.5,
         'min_lot_size': 0.01,
-        'max_lot_size': 1.0,
+        'max_lot_size': 100.0,
         'allowed_order_types': ['BUY_LIMIT', 'SELL_LIMIT', 'BUY_STOP', 'SELL_STOP', 'BUY_STOP_LIMIT', 'SELL_STOP_LIMIT'],
         'symbol_mapping': {
-            'AUDCAD': 'AUDCAD.x',
-            'AUDCHF': 'AUDCHF.x',
-            'AUDJPY': 'AUDJPY.x',
-            'AUDNZD': 'AUDNZD.x',
-            'AUDUSD': 'AUDUSD.x',
-            'CADCHF': 'CADCHF.x',
-            'CADJPY': 'CADJPY.x',
-            'CHFJPY': 'CHFJPY.x',
-            'EURAUD': 'EURAUD.x',
-            'EURCAD': 'EURCAD.x',
-            'EURCHF': 'EURCHF.x',
-            'EURGBP': 'EURGBP.x',
-            'EURJPY': 'EURJPY.x',
-            'EURNZD': 'EURNZD.x',
-            'EURUSD': 'EURUSD.x',
-            'GBPAUD': 'GBPAUD.x',
-            'GBPCAD': 'GBPCAD.x',
-            'GBPCHF': 'GBPCHF.x',
-            'GBPJPY': 'GBPJPY.x',
-            'GBPNZD': 'GBPNZD.x',
+            # 'AUDJPY': 'AUDJPY.x',
+            # 'AUDUSD': 'AUDUSD.x',
+            # 'BRENT': 'BRENT.x',
+            'BTCUSD': 'BTCUSD.x',
+            # 'ETHUSD': 'ETHUSD.x',
+            # 'GBPJPY': 'GBPJPY.x',
             'GBPUSD': 'GBPUSD.x',
-            'NZDCAD': 'NZDCAD.x',
-            'NZDCHF': 'NZDCHF.x',
-            'NZDJPY': 'NZDJPY.x',
-            'NZDUSD': 'NZDUSD.x',
+            # 'NAT.GAS': 'NAT.GAS.x',
+            # 'US2000': 'US2000.x',
+            # 'US500': 'US500.x',
             'USDCAD': 'USDCAD.x',
             'USDCHF': 'USDCHF.x',
-            'USDJPY': 'USDJPY.x',
+            # 'USDJPY': 'USDJPY.x',
+            # 'USTEC': 'USTEC.x',
+            # 'XAGUSD': 'XAGUSD.x',
+            # 'XAUUSD': 'XAUUSD.x',
         },
         'orphan_management': {
             'kill_orphaned_orders': True,
@@ -66,53 +93,60 @@ TARGET_TERMINALS = {
             'max_orders': 30
         }
     },
-    # 'terminal_2': {
-    #     'MT5_ACCOUNT': 67890,
-    #     'MT5_PASSWORD': "password456",
-    #     'MT5_SERVER': "Broker-Server-2",
-    #     'MT5_TERMINAL_PATH': r"C:\Program Files\MT5_2\terminal64.exe",
-    #     'lot_multiplier': 0.5,
-    #     'min_lot_size': 0.1,
-    #     'max_lot_size': 10.0,
-    #     'allowed_order_types': ['BUY_LIMIT', 'SELL_LIMIT'],  # Only limit orders
-    #     'symbol_mapping': {
-    #         'EURUSD': 'EURUSDm',
-    #         'XAUUSD': 'XAUUSDm'
-    #     },
-    #     'orphan_management': {
-    #         'kill_orphaned_orders': False,  # Different policy for this terminal
-    #         'orphan_check_interval': 600,
-    #         'max_orphan_checks': 5
-    #     },
-    #     'max_pending_orders': {
-    #         'enabled': False  # No limit for this terminal
-    #     }
-    # }
+    'terminal_3': {
+        'MT5_ACCOUNT': 111222333,
+        'MT5_PASSWORD': "YOUR_TARGET_PASSWORD_2",
+        'MT5_SERVER': "YourBroker-Server",
+        'MT5_TERMINAL_PATH': r"C:\Program Files\MetaTrader 5\terminal64.exe",
+        'timeout': 10000,
+        'lot_multiplier': 0.5,
+        'min_lot_size': 0.01,
+        'max_lot_size': 100.0,
+        'allowed_order_types': ['BUY_LIMIT', 'SELL_LIMIT', 'BUY_STOP', 'SELL_STOP', 'BUY_STOP_LIMIT', 'SELL_STOP_LIMIT'],
+        'symbol_mapping': {
+            # 'AUDJPY': 'AUDJPY.x',
+            # 'AUDUSD': 'AUDUSD.x',
+            # 'BRENT': 'BRENT.x',
+            'BTCUSD': 'BTCUSD.x',
+            # 'ETHUSD': 'ETHUSD.x',
+            # 'GBPJPY': 'GBPJPY.x',
+            'GBPUSD': 'GBPUSD.x',
+            # 'NAT.GAS': 'NAT.GAS.x',
+            # 'US2000': 'US2000.x',
+            # 'US500': 'US500.x',
+            'USDCAD': 'USDCAD.x',
+            'USDCHF': 'USDCHF.x',
+            # 'USDJPY': 'USDJPY.x',
+            # 'USTEC': 'USTEC.x',
+            # 'XAGUSD': 'XAGUSD.x',
+            # 'XAUUSD': 'XAUUSD.x',
+        },
+        'orphan_management': {
+            'kill_orphaned_orders': True,
+            'kill_orphaned_positions': True,
+            'orphan_check_interval': 1,  # seconds
+            'max_orphan_checks': 1
+        },
+        'max_pending_orders': {
+            'enabled': True,
+            'max_orders': 30
+        }
+    }
 }
 
 # =============================================================================
-# EXECUTION MODE CONFIGURATION
+# EXECUTION MODE CONFIGURATION (Claude-style)
 # =============================================================================
-# Choose execution mode: 'once', 'scheduled', or 'continuous'
-EXECUTION_MODE = 'once'  # Set to 'once' to run once and exit
 
-# Configuration for scheduled execution mode
-SCHEDULE_CONFIG = {
-    'interval_seconds': 60,                                        # Run every 60 seconds
-    'max_iterations': 0                                            # 0 = unlimited iterations
-}
+# Scheduling Configuration (Claude-style)
+ENABLE_SCHEDULING = False        # Set to True to run on a schedule, False for single run
+SCHEDULE_TIMEFRAME = "M5"        # Candle timeframe (e.g., "M1", "M5", "M10", "M15", "M30", "H1", "H4")
+SCHEDULE_OFFSET_SECONDS = 60     # Seconds *after* the candle completion to run the script
 
-# Configuration for continuous execution mode
-CONTINUOUS_CONFIG = {
-    'delay_seconds': 5,                                            # 5 second delay between iterations
-    'max_runtime_hours': 0                                        # 0 = unlimited runtime
-}
-
-# Legacy scheduled execution configuration (deprecated - use EXECUTION_MODE instead)
-SCHEDULED_EXECUTION = {
-    'enabled': False,          # Boolean: Enable scheduled runs
-    'interval_seconds': 300,   # Integer: Seconds between runs (when enabled)
-}
+# Continuous Mode Configuration
+ENABLE_CONTINUOUS_MODE = False    # Set to True for continuous operation with delays
+CONTINUOUS_DELAY_SECONDS = 500     # Delay in seconds between continuous iterations
+CONTINUOUS_MAX_RUNTIME_HOURS = 0 # Maximum runtime in hours (0 = unlimited)
 
 # =============================================================================
 # LOGGING CONFIGURATION
@@ -145,11 +179,13 @@ def load_config(config_path=None):
     return {
         'SOURCE_TERMINAL': SOURCE_TERMINAL,
         'TARGET_TERMINALS': TARGET_TERMINALS,
-        'EXECUTION_MODE': EXECUTION_MODE,
-        'SCHEDULE_CONFIG': SCHEDULE_CONFIG,
-        'CONTINUOUS_CONFIG': CONTINUOUS_CONFIG,
+        'ENABLE_SCHEDULING': ENABLE_SCHEDULING,
+        'SCHEDULE_TIMEFRAME': SCHEDULE_TIMEFRAME,
+        'SCHEDULE_OFFSET_SECONDS': SCHEDULE_OFFSET_SECONDS,
+        'ENABLE_CONTINUOUS_MODE': ENABLE_CONTINUOUS_MODE,
+        'CONTINUOUS_DELAY_SECONDS': CONTINUOUS_DELAY_SECONDS,
+        'CONTINUOUS_MAX_RUNTIME_HOURS': CONTINUOUS_MAX_RUNTIME_HOURS,
         'LOGGING_CONFIG': LOGGING_CONFIG,
-        'SCHEDULED_EXECUTION': SCHEDULED_EXECUTION,  # Legacy support
         'SYSTEM_CONFIG': SYSTEM_CONFIG
     }
 
@@ -162,20 +198,24 @@ def validate_config(config=None):
     if config:
         source_terminal = config.get('SOURCE_TERMINAL', {})
         target_terminals = config.get('TARGET_TERMINALS', {})
-        execution_mode = config.get('EXECUTION_MODE', 'once')
-        schedule_config = config.get('SCHEDULE_CONFIG', {})
-        continuous_config = config.get('CONTINUOUS_CONFIG', {})
+        enable_scheduling = config.get('ENABLE_SCHEDULING', False)
+        schedule_timeframe = config.get('SCHEDULE_TIMEFRAME', 'M5')
+        schedule_offset_seconds = config.get('SCHEDULE_OFFSET_SECONDS', 60)
+        enable_continuous_mode = config.get('ENABLE_CONTINUOUS_MODE', True)
+        continuous_delay_seconds = config.get('CONTINUOUS_DELAY_SECONDS', 5)
+        continuous_max_runtime_hours = config.get('CONTINUOUS_MAX_RUNTIME_HOURS', 0)
         logging_config = config.get('LOGGING_CONFIG', {})
-        scheduled_execution = config.get('SCHEDULED_EXECUTION', {})
         system_config = config.get('SYSTEM_CONFIG', {})
     else:
         source_terminal = SOURCE_TERMINAL
         target_terminals = TARGET_TERMINALS
-        execution_mode = EXECUTION_MODE
-        schedule_config = SCHEDULE_CONFIG
-        continuous_config = CONTINUOUS_CONFIG
+        enable_scheduling = ENABLE_SCHEDULING
+        schedule_timeframe = SCHEDULE_TIMEFRAME
+        schedule_offset_seconds = SCHEDULE_OFFSET_SECONDS
+        enable_continuous_mode = ENABLE_CONTINUOUS_MODE
+        continuous_delay_seconds = CONTINUOUS_DELAY_SECONDS
+        continuous_max_runtime_hours = CONTINUOUS_MAX_RUNTIME_HOURS
         logging_config = LOGGING_CONFIG
-        scheduled_execution = SCHEDULED_EXECUTION
         system_config = SYSTEM_CONFIG
 
     # Validate source terminal
@@ -240,30 +280,34 @@ def validate_config(config=None):
             if not isinstance(max_orders, int) or max_orders <= 0:
                 errors.append(f"Terminal {terminal_name}: max_orders must be a positive integer when enabled")
     
-    # Validate execution mode
-    valid_execution_modes = ['once', 'scheduled', 'continuous']
-    if execution_mode not in valid_execution_modes:
-        errors.append(f"EXECUTION_MODE must be one of: {', '.join(valid_execution_modes)}")
+    # Validate scheduling configuration
+    if not isinstance(enable_scheduling, bool):
+        errors.append("ENABLE_SCHEDULING must be a boolean")
     
-    # Validate schedule config
-    if execution_mode == 'scheduled':
-        interval = schedule_config.get('interval_seconds')
-        if not isinstance(interval, int) or interval <= 0:
-            errors.append("SCHEDULE_CONFIG interval_seconds must be a positive integer")
+    if enable_scheduling:
+        # Validate schedule timeframe
+        valid_timeframes = ['M1', 'M5', 'M10', 'M15', 'M30', 'H1', 'H4', 'D1']
+        if schedule_timeframe not in valid_timeframes:
+            errors.append(f"SCHEDULE_TIMEFRAME must be one of: {', '.join(valid_timeframes)}")
         
-        max_iterations = schedule_config.get('max_iterations', 0)
-        if not isinstance(max_iterations, int) or max_iterations < 0:
-            errors.append("SCHEDULE_CONFIG max_iterations must be a non-negative integer")
+        # Validate schedule offset
+        if not isinstance(schedule_offset_seconds, int) or schedule_offset_seconds < 0:
+            errors.append("SCHEDULE_OFFSET_SECONDS must be a non-negative integer")
     
-    # Validate continuous config
-    if execution_mode == 'continuous':
-        delay = continuous_config.get('delay_seconds')
-        if not isinstance(delay, (int, float)) or delay < 0:
-            errors.append("CONTINUOUS_CONFIG delay_seconds must be a non-negative number")
+    # Validate continuous mode configuration
+    if not isinstance(enable_continuous_mode, bool):
+        errors.append("ENABLE_CONTINUOUS_MODE must be a boolean")
+    
+    if enable_continuous_mode:
+        # Validate continuous delay
+        if not isinstance(continuous_delay_seconds, (int, float)) or continuous_delay_seconds < 0:
+            errors.append("CONTINUOUS_DELAY_SECONDS must be a non-negative number")
         
-        max_runtime = continuous_config.get('max_runtime_hours', 0)
-        if not isinstance(max_runtime, (int, float)) or max_runtime < 0:
-            errors.append("CONTINUOUS_CONFIG max_runtime_hours must be a non-negative number")
+        # Validate max runtime
+        if not isinstance(continuous_max_runtime_hours, (int, float)) or continuous_max_runtime_hours < 0:
+            errors.append("CONTINUOUS_MAX_RUNTIME_HOURS must be a non-negative number")
+    
+    # Note: When both execution modes are disabled, system runs once and exits
     
     # Validate logging config
     log_level = logging_config.get('level', 'INFO')
@@ -279,11 +323,7 @@ def validate_config(config=None):
     if not isinstance(backup_count, int) or backup_count < 0:
         errors.append("LOGGING_CONFIG backup_count must be a non-negative integer")
 
-    # Validate scheduled execution (legacy)
-    if scheduled_execution.get('enabled', False):
-        interval = scheduled_execution.get('interval_seconds')
-        if not isinstance(interval, int) or interval <= 0:
-            errors.append("Scheduled execution interval_seconds must be a positive integer")
+
 
     # Validate system config
     timeout = system_config.get('connection_timeout', 30)
@@ -308,10 +348,22 @@ def get_all_terminal_names():
     """Get list of all configured terminal names"""
     return list(TARGET_TERMINALS.keys())
 
-def is_scheduled_execution_enabled():
-    """Check if scheduled execution is enabled"""
-    return SCHEDULED_EXECUTION.get('enabled', False)
+def is_scheduling_enabled():
+    """Check if scheduling is enabled"""
+    return ENABLE_SCHEDULING
 
-def get_execution_interval():
-    """Get execution interval in seconds"""
-    return SCHEDULED_EXECUTION.get('interval_seconds', 300)
+def is_continuous_mode_enabled():
+    """Check if continuous mode is enabled"""
+    return ENABLE_CONTINUOUS_MODE
+
+def get_schedule_timeframe():
+    """Get schedule timeframe"""
+    return SCHEDULE_TIMEFRAME
+
+def get_schedule_offset_seconds():
+    """Get schedule offset in seconds"""
+    return SCHEDULE_OFFSET_SECONDS
+
+def get_continuous_delay_seconds():
+    """Get continuous mode delay in seconds"""
+    return CONTINUOUS_DELAY_SECONDS

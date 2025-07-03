@@ -19,7 +19,8 @@ try:
     if is_valid:
         print("✓ Configuration is valid - all validations passed")
         print("\nConfiguration summary:")
-        print(f"  - Execution mode: {config.get('EXECUTION_MODE')}")
+        print(f"  - Scheduling enabled: {config.get('ENABLE_SCHEDULING', False)}")
+        print(f"  - Continuous mode enabled: {config.get('ENABLE_CONTINUOUS_MODE', False)}")
         print(f"  - Source terminal: {config['SOURCE_TERMINAL']['MT5_SERVER']}")
         print(f"  - Target terminals: {len(config['TARGET_TERMINALS'])}")
         print(f"  - Logging level: {config['LOGGING_CONFIG']['level']}")

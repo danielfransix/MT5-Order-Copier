@@ -262,7 +262,8 @@ class TestConfiguration(unittest.TestCase):
             # Check required sections
             self.assertIn('SOURCE_TERMINAL', config)
             self.assertIn('TARGET_TERMINALS', config)
-            self.assertIn('EXECUTION_MODE', config)
+            self.assertIn('ENABLE_SCHEDULING', config)
+            self.assertIn('ENABLE_CONTINUOUS_MODE', config)
             self.assertIn('LOGGING_CONFIG', config)
             
             # Validate structure
@@ -301,7 +302,12 @@ class TestConfiguration(unittest.TestCase):
                     }
                 }
             },
-            'EXECUTION_MODE': 'once',
+            'ENABLE_SCHEDULING': False,
+            'ENABLE_CONTINUOUS_MODE': True,
+            'SCHEDULE_TIMEFRAME': 'M5',
+            'SCHEDULE_OFFSET_SECONDS': 60,
+            'CONTINUOUS_DELAY_SECONDS': 5,
+            'CONTINUOUS_MAX_RUNTIME_HOURS': 0,
             'LOGGING_CONFIG': {
                 'level': 'INFO',
                 'console_output': True
@@ -428,7 +434,12 @@ class TestSystemIntegration(unittest.TestCase):
                     }
                 }
             },
-            'EXECUTION_MODE': 'once',
+            'ENABLE_SCHEDULING': False,
+            'ENABLE_CONTINUOUS_MODE': True,
+            'SCHEDULE_TIMEFRAME': 'M5',
+            'SCHEDULE_OFFSET_SECONDS': 60,
+            'CONTINUOUS_DELAY_SECONDS': 5,
+            'CONTINUOUS_MAX_RUNTIME_HOURS': 0,
             'LOGGING_CONFIG': {
                 'level': 'INFO',
                 'console_output': False

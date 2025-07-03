@@ -59,37 +59,49 @@ class OrderManager:
             self.tracker.update_source_positions(source_positions)
             
             # Step 2: Process each target terminal
-            success = True
+            terminals_with_errors = []
+            terminals_processed_successfully = 0
+            
             for terminal_name, terminal_config in self.target_configs.items():
                 try:
                     self.logger.info(f"Processing terminal: {terminal_name}")
                     
-                    if not self._process_terminal(terminal_name, terminal_config, source_orders, source_positions):
+                    if self._process_terminal(terminal_name, terminal_config, source_orders, source_positions):
+                        terminals_processed_successfully += 1
+                        self.stats['terminals_processed'] += 1
+                        self.logger.info(f"Successfully processed terminal: {terminal_name}")
+                    else:
                         self.logger.error(f"Failed to process terminal: {terminal_name}")
-                        success = False
-                        break
-                    
-                    self.stats['terminals_processed'] += 1
+                        terminals_with_errors.append(terminal_name)
                     
                 except Exception as e:
                     self.logger.error(f"Exception processing terminal {terminal_name}: {format_error_message(e)}")
-                    success = False
-                    break
+                    terminals_with_errors.append(terminal_name)
             
             # Step 3: Save tracking state
             if not self.tracker.save_state():
                 self.logger.warning("Failed to save tracking state")
             
-            # Step 4: Log final statistics
+            # Step 4: Log final statistics and determine overall success
             self._log_statistics()
             
+            total_terminals = len(self.target_configs)
+            success = len(terminals_with_errors) == 0
+            
             if success:
-                self.logger.info(f"Order copying process completed successfully. Orders copied: {self.stats['orders_copied']}, "
+                self.logger.info(f"Order copying process completed successfully for all {total_terminals} terminals. "
+                               f"Orders copied: {self.stats['orders_copied']}, "
                                f"Orders updated: {self.stats['orders_updated']}, "
                                f"Orders cancelled: {self.stats['orders_cancelled']}, "
                                f"Positions updated: {self.stats['positions_updated']}")
             else:
-                self.logger.error("Order copying process completed with errors")
+                self.logger.warning(f"Order copying process completed with partial success. "
+                                  f"Successfully processed: {terminals_processed_successfully}/{total_terminals} terminals. "
+                                  f"Terminals with errors: {', '.join(terminals_with_errors)}. "
+                                  f"Orders copied: {self.stats['orders_copied']}, "
+                                  f"Orders updated: {self.stats['orders_updated']}, "
+                                  f"Orders cancelled: {self.stats['orders_cancelled']}, "
+                                  f"Positions updated: {self.stats['positions_updated']}")
             
             return success
             
@@ -163,31 +175,39 @@ class OrderManager:
             self.tracker.update_target_orders(terminal_name, target_orders)
             self.tracker.update_target_positions(terminal_name, target_positions)
             
-            # Process orders
-            success = True
+            # Process orders - continue with all steps regardless of individual failures
+            failed_steps = []
             
             # Step 1: Copy new orders
             if not self._copy_new_orders(terminal_name, terminal_config, source_orders, target_orders):
-                success = False
+                failed_steps.append("copy_new_orders")
             
             # Step 2: Update modified orders
-            if success and not self._update_modified_orders(terminal_name, terminal_config, source_orders, target_orders):
-                success = False
+            if not self._update_modified_orders(terminal_name, terminal_config, source_orders, target_orders):
+                failed_steps.append("update_modified_orders")
             
             # Step 3: Handle orphaned orders
-            if success and not self._handle_orphaned_orders(terminal_name, terminal_config, target_orders):
-                success = False
+            if not self._handle_orphaned_orders(terminal_name, terminal_config, target_orders):
+                failed_steps.append("handle_orphaned_orders")
             
             # Step 4: Handle orphaned positions
-            if success and not self._handle_orphaned_positions(terminal_name, terminal_config, target_positions):
-                success = False
+            if not self._handle_orphaned_positions(terminal_name, terminal_config, target_positions):
+                failed_steps.append("handle_orphaned_positions")
             
             # Step 5: Synchronize positions
-            if success and not self._synchronize_positions(terminal_name, source_positions, target_positions):
-                success = False
+            if not self._synchronize_positions(terminal_name, source_positions, target_positions):
+                failed_steps.append("synchronize_positions")
             
             # Disconnect from target terminal
             self.connector.disconnect()
+            
+            # Determine overall success and log results
+            success = len(failed_steps) == 0
+            
+            if success:
+                self.logger.info(f"All processing steps completed successfully for {terminal_name}")
+            else:
+                self.logger.warning(f"Terminal {terminal_name} completed with errors in steps: {', '.join(failed_steps)}")
             
             return success
             
@@ -206,6 +226,9 @@ class OrderManager:
             source_pos_map = {pos['magic']: pos for pos in source_positions}
             
             # Check each target position for updates needed
+            failed_position_updates = []
+            successful_position_updates = 0
+            
             for target_pos in target_positions:
                 magic_number = target_pos.get('magic')
                 
@@ -217,10 +240,18 @@ class OrderManager:
                     if self._position_needs_update(source_pos, target_pos):
                         if self._update_single_position(target_pos, source_pos):
                             self.stats['positions_updated'] += 1
+                            successful_position_updates += 1
                             self.logger.info(f"Updated position {target_pos['ticket']} on {terminal_name}")
                         else:
                             self.logger.error(f"Failed to update position {target_pos['ticket']} on {terminal_name}")
-                            return False
+                            failed_position_updates.append(target_pos['ticket'])
+            
+            if failed_position_updates:
+                self.logger.warning(f"Failed to update {len(failed_position_updates)} positions on {terminal_name}. "
+                                  f"Failed position updates: {', '.join(map(str, failed_position_updates))}. "
+                                  f"Successfully updated: {successful_position_updates} positions.")
+            elif successful_position_updates > 0:
+                self.logger.info(f"Successfully updated all {successful_position_updates} positions on {terminal_name}")
             
             return True
             
@@ -308,13 +339,25 @@ class OrderManager:
                 return True  # Not an error, just constraint violation
             
             # Copy each new order
-            for source_order in new_orders:
-                if not self._copy_single_order(terminal_name, terminal_config, source_order):
-                    self.logger.error(f"Failed to copy order {source_order['ticket']} to {terminal_name}")
-                    return False
-                
-                self.stats['orders_copied'] += 1
+            failed_orders = []
+            successful_orders = 0
             
+            for source_order in new_orders:
+                if self._copy_single_order(terminal_name, terminal_config, source_order):
+                    self.stats['orders_copied'] += 1
+                    successful_orders += 1
+                else:
+                    self.logger.error(f"Failed to copy order {source_order['ticket']} to {terminal_name}")
+                    failed_orders.append(source_order['ticket'])
+            
+            if failed_orders:
+                self.logger.warning(f"Failed to copy {len(failed_orders)} out of {len(new_orders)} orders to {terminal_name}. "
+                                  f"Failed orders: {', '.join(map(str, failed_orders))}. "
+                                  f"Successfully copied: {successful_orders} orders.")
+            else:
+                self.logger.info(f"Successfully copied all {successful_orders} new orders to {terminal_name}")
+            
+            # Return True if at least some orders were processed successfully, or if there were no orders to copy
             return True
             
         except Exception as e:
@@ -420,12 +463,23 @@ class OrderManager:
             self.logger.info(f"Found {len(updates_needed)} orders to update on {terminal_name}")
             
             # Apply updates
+            failed_updates = []
+            successful_updates = 0
+            
             for source_order, target_order in updates_needed:
-                if not self._update_single_order(terminal_name, terminal_config, source_order, target_order):
+                if self._update_single_order(terminal_name, terminal_config, source_order, target_order):
+                    self.stats['orders_updated'] += 1
+                    successful_updates += 1
+                else:
                     self.logger.error(f"Failed to update order {target_order['ticket']} on {terminal_name}")
-                    return False
-                
-                self.stats['orders_updated'] += 1
+                    failed_updates.append(target_order['ticket'])
+            
+            if failed_updates:
+                self.logger.warning(f"Failed to update {len(failed_updates)} out of {len(updates_needed)} orders on {terminal_name}. "
+                                  f"Failed updates: {', '.join(map(str, failed_updates))}. "
+                                  f"Successfully updated: {successful_updates} orders.")
+            else:
+                self.logger.info(f"Successfully updated all {successful_updates} orders on {terminal_name}")
             
             return True
             
@@ -549,6 +603,9 @@ class OrderManager:
             self.logger.info(f"Found {len(orphaned_orders)} orphaned orders on {terminal_name}")
             
             # Process each orphaned order
+            failed_cancellations = []
+            successful_cancellations = 0
+            
             for orphan_order in orphaned_orders:
                 ticket = orphan_order['ticket']
                 
@@ -557,15 +614,23 @@ class OrderManager:
                 
                 # Check if should kill
                 if self.tracker.should_kill_orphan(terminal_name, ticket, max_checks):
-                    if not self._cancel_orphaned_order(terminal_name, orphan_order):
+                    if self._cancel_orphaned_order(terminal_name, orphan_order):
+                        # Reset check counter after successful cancellation
+                        self.tracker.reset_orphan_check(terminal_name, ticket)
+                        self.stats['orders_cancelled'] += 1
+                        successful_cancellations += 1
+                    else:
                         self.logger.error(f"Failed to cancel orphaned order {ticket} on {terminal_name}")
-                        return False
-                    
-                    # Reset check counter after successful cancellation
-                    self.tracker.reset_orphan_check(terminal_name, ticket)
-                    self.stats['orders_cancelled'] += 1
+                        failed_cancellations.append(ticket)
                 else:
                     self.logger.info(f"Orphaned order {ticket} on {terminal_name} check count: {check_count}/{max_checks}")
+            
+            if failed_cancellations:
+                self.logger.warning(f"Failed to cancel {len(failed_cancellations)} orphaned orders on {terminal_name}. "
+                                  f"Failed cancellations: {', '.join(map(str, failed_cancellations))}. "
+                                  f"Successfully cancelled: {successful_cancellations} orders.")
+            elif successful_cancellations > 0:
+                self.logger.info(f"Successfully cancelled all {successful_cancellations} orphaned orders on {terminal_name}")
             
             # Clean up orphan checks for orders that no longer exist
             active_tickets = {order['ticket'] for order in target_orders}
@@ -620,6 +685,9 @@ class OrderManager:
             self.logger.info(f"Found {len(orphaned_positions)} orphaned positions on {terminal_name}")
             
             # Process each orphaned position
+            failed_closures = []
+            successful_closures = 0
+            
             for orphan_position in orphaned_positions:
                 ticket = orphan_position['ticket']
                 
@@ -628,15 +696,23 @@ class OrderManager:
                 
                 # Check if should kill
                 if self.tracker.should_kill_orphan(terminal_name, ticket, max_checks):
-                    if not self._close_orphaned_position(terminal_name, orphan_position):
+                    if self._close_orphaned_position(terminal_name, orphan_position):
+                        # Reset check counter after successful closure
+                        self.tracker.reset_orphan_check(terminal_name, ticket)
+                        self.stats['positions_updated'] += 1  # Reusing this stat for closed positions
+                        successful_closures += 1
+                    else:
                         self.logger.error(f"Failed to close orphaned position {ticket} on {terminal_name}")
-                        return False
-                    
-                    # Reset check counter after successful closure
-                    self.tracker.reset_orphan_check(terminal_name, ticket)
-                    self.stats['positions_updated'] += 1  # Reusing this stat for closed positions
+                        failed_closures.append(ticket)
                 else:
                     self.logger.info(f"Orphaned position {ticket} on {terminal_name} check count: {check_count}/{max_checks}")
+            
+            if failed_closures:
+                self.logger.warning(f"Failed to close {len(failed_closures)} orphaned positions on {terminal_name}. "
+                                  f"Failed closures: {', '.join(map(str, failed_closures))}. "
+                                  f"Successfully closed: {successful_closures} positions.")
+            elif successful_closures > 0:
+                self.logger.info(f"Successfully closed all {successful_closures} orphaned positions on {terminal_name}")
             
             # Clean up orphan checks for positions that no longer exist
             active_tickets = {position['ticket'] for position in target_positions}

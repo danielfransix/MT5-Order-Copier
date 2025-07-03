@@ -1,57 +1,97 @@
 {
   "orphan_checks": {},
-  "last_run": "2025-06-18 23:55:09",
+  "last_run": "2025-06-26 08:58:01",
   "source_orders": {
-    "96884557": {
-      "ticket": 96884557,
-      "symbol": "EURUSD",
+    "98562623": {
+      "ticket": 98562623,
+      "symbol": "XAUUSD",
       "type_name": "BUY_LIMIT",
-      "volume": 0.05,
-      "price_open": 1.1475,
-      "sl": 1.1468,
-      "tp": 1.1484,
-      "time_setup": "2025-06-19 02:48:12",
+      "volume": 0.02,
+      "price_open": 3341.0,
+      "sl": 3335.0,
+      "tp": 3352.0,
+      "time_setup": "2025-06-26 11:47:54",
       "time_expiration": null,
-      "last_seen": "2025-06-18 23:55:09"
-    },
-    "96884582": {
-      "ticket": 96884582,
-      "symbol": "NZDUSD",
-      "type_name": "BUY_LIMIT",
-      "volume": 0.01,
-      "price_open": 0.602,
-      "sl": 0.5995,
-      "tp": 0.604,
-      "time_setup": "2025-06-19 02:49:05",
-      "time_expiration": null,
-      "last_seen": "2025-06-18 23:55:09"
-    },
-    "96884692": {
-      "ticket": 96884692,
-      "symbol": "USDCHF",
-      "type_name": "SELL_LIMIT",
-      "volume": 0.06,
-      "price_open": 0.81915,
-      "sl": 0.81965,
-      "tp": 0.8165,
-      "time_setup": "2025-06-19 02:50:50",
-      "time_expiration": null,
-      "last_seen": "2025-06-18 23:55:09"
-    },
-    "96884784": {
-      "ticket": 96884784,
-      "symbol": "USDCAD",
-      "type_name": "BUY_LIMIT",
-      "volume": 0.03,
-      "price_open": 1.3679999999999999,
-      "sl": 1.3665,
-      "tp": 1.3705,
-      "time_setup": "2025-06-19 02:51:45",
-      "time_expiration": null,
-      "last_seen": "2025-06-18 23:55:09"
+      "last_seen": "2025-06-26 08:58:01"
     }
   },
   "target_orders": {
-    "terminal_1": {}
+    "terminal_1": {
+      "8072530": {
+        "ticket": 8072530,
+        "magic": 98562623,
+        "symbol": "XAUUSD.x",
+        "type_name": "BUY_LIMIT",
+        "volume": 0.02,
+        "price_open": 3341.0,
+        "sl": 3335.0,
+        "tp": 3352.0,
+        "time_setup": "2025-06-26 11:49:39",
+        "time_expiration": null,
+        "last_seen": "2025-06-26 08:58:01"
+      }
+    },
+    "terminal_2": {
+      "8072531": {
+        "ticket": 8072531,
+        "magic": 98562623,
+        "symbol": "XAUUSD.x",
+        "type_name": "BUY_LIMIT",
+        "volume": 0.02,
+        "price_open": 3341.0,
+        "sl": 3335.0,
+        "tp": 3352.0,
+        "time_setup": "2025-06-26 11:49:39",
+        "time_expiration": null,
+        "last_seen": "2025-06-26 08:58:01"
+      }
+    },
+    "terminal_3": {
+      "8072532": {
+        "ticket": 8072532,
+        "magic": 98562623,
+        "symbol": "XAUUSD.x",
+        "type_name": "BUY_LIMIT",
+        "volume": 0.02,
+        "price_open": 3341.0,
+        "sl": 3335.0,
+        "tp": 3352.0,
+        "time_setup": "2025-06-26 11:49:39",
+        "time_expiration": null,
+        "last_seen": "2025-06-26 08:58:01"
+      }
+    }
+  },
+  "source_positions": {
+    "98532732": {
+      "ticket": 98532732,
+      "symbol": "XAGUSD",
+      "type_name": "BUY",
+      "volume": 0.02,
+      "price_open": 36.28,
+      "sl": 36.18,
+      "tp": 36.42,
+      "magic": 0,
+      "time": "2025-06-26 10:05:21",
+      "last_seen": "2025-06-26 08:58:01"
+    }
+  },
+  "target_positions": {
+    "terminal_1": {
+      "8054748": {
+        "ticket": 8054748,
+        "magic": 98532732,
+        "symbol": "XAGUSD.x",
+        "type_name": "BUY",
+        "volume": 0.02,
+        "price_open": 36.28,
+        "sl": 36.18,
+        "tp": 36.45,
+        "time": "2025-06-26 10:05:25",
+        "last_seen": "2025-06-26 08:58:01"
+      }
+    },
+    "terminal_2": {},
+    "terminal_3": {}
   }
 }

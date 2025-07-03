@@ -145,7 +145,7 @@ class MT5Connector:
                 "magic": order_request.get('magic', 0),
                 "comment": order_request.get('comment', "Copied order"),
                 "type_time": mt5.ORDER_TIME_GTC,  # Good till cancelled
-                "type_filling": mt5.ORDER_FILLING_RETURN
+                "type_filling": self.get_symbol_filling_mode(order_request['symbol'])
             }
             
             # Add optional parameters
@@ -206,7 +206,7 @@ class MT5Connector:
                 "sl": modifications.get('sl', current_order.sl),
                 "tp": modifications.get('tp', current_order.tp),
                 "type_time": current_order.type_time,
-                "type_filling": mt5.ORDER_FILLING_RETURN
+                "type_filling": self.get_symbol_filling_mode(current_order.symbol)
             }
             
             # Handle expiration time
@@ -248,11 +248,18 @@ class MT5Connector:
             raise ConnectionError("Not connected to MT5 terminal")
         
         try:
+            # Get order info to determine symbol for filling mode
+            order_info = mt5.orders_get(ticket=ticket)
+            if not order_info:
+                error_msg = f"Order {ticket} not found for cancellation"
+                self.logger.error(error_msg)
+                return False, error_msg
+            
             # Prepare cancellation request
             request = {
                 "action": mt5.TRADE_ACTION_REMOVE,
                 "order": ticket,
-                "type_filling": mt5.ORDER_FILLING_RETURN
+                "type_filling": self.get_symbol_filling_mode(order_info[0].symbol)
             }
             
             # Send cancellation
@@ -303,6 +310,31 @@ class MT5Connector:
         except Exception as e:
             self.logger.error(f"Error getting symbol info for {symbol}: {format_error_message(e)}")
             return None
+    
+    def get_symbol_filling_mode(self, symbol: str) -> int:
+        """Dynamically determine the appropriate filling mode for a symbol"""
+        if not self.is_connected:
+            raise ConnectionError("Not connected to MT5 terminal")
+        
+        try:
+            symbol_info = mt5.symbol_info(symbol)
+            if symbol_info is None:
+                self.logger.warning(f"Could not retrieve symbol info for {symbol}, using default ORDER_FILLING_RETURN")
+                return mt5.ORDER_FILLING_RETURN
+            
+            filling_mode = symbol_info.filling_mode
+            
+            # Priority: FOK > IOC > RETURN
+            if filling_mode & 2:  # ORDER_FILLING_FOK supported
+                return mt5.ORDER_FILLING_FOK
+            elif filling_mode & 1:  # ORDER_FILLING_IOC supported  
+                return mt5.ORDER_FILLING_IOC
+            else:  # Default to RETURN
+                return mt5.ORDER_FILLING_RETURN
+                
+        except Exception as e:
+            self.logger.error(f"Error determining filling mode for {symbol}: {format_error_message(e)}")
+            return mt5.ORDER_FILLING_RETURN
     
     def get_account_info(self) -> Optional[Dict[str, Any]]:
         """Get current account information"""
@@ -466,7 +498,7 @@ class MT5Connector:
                 "symbol": current_position.symbol,
                 "sl": sl if sl is not None else current_position.sl,
                 "tp": tp if tp is not None else current_position.tp,
-                "type_filling": mt5.ORDER_FILLING_RETURN
+                "type_filling": self.get_symbol_filling_mode(current_position.symbol)
             }
             
             # Send modification
@@ -519,7 +551,7 @@ class MT5Connector:
                 "symbol": position.symbol,
                 "volume": position.volume,
                 "type": order_type,
-                "type_filling": mt5.ORDER_FILLING_RETURN,
+                "type_filling": self.get_symbol_filling_mode(position.symbol),
                 "comment": "Orphaned position closure"
             }
             
